@@ -49,24 +49,31 @@
               </form>
 </div>
 <script type="text/javascript">
-    $('#addBtn').on('click', function () {
-      var newreservation = {
+function clear() {
+    $("#name").val(""),
+    $("#email").val(""),
+    $("#phoneNumber").val(""),
+    $("#Id").val("")
+};
+
+
+$('#addBtn').on('click', function () {
+    event.preventDefault();
+    var newReservation = {
         name: $('#name').val().trim(),
         email: $('#email').val().trim(),
-        phone: $('#phone').val().trim(),
-        guest: $('#guest').val().trim(),
-      };
-      $.post('http://localhost:3000/api/new', newreservation)
-        .done(function (data) {
-          console.log(data);
-          if(data.waitlist){
-            window.location.href = '/list#waitlist';
-          } else {
-            window.location.href = '/list#seated';
-          }
-        });
-      
-    });
+        phone: $('#phoneNumber').val().trim(),
+        Unique_ID: $('#Id').val().trim()
+    };
+    console.log(newReservation);
+    
+    $.post("/api/reservations", newReservation)
+    .then(function (data) {
+    console.log(data);
+        })
+    clear();
+    
+});
   </script>
     
 </body>
