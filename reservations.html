@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Resvervation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <img class="card-img-top" src="http://d1060ja7433lis.cloudfront.net/d3mBKkVMW7/jqg_13539536932.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title octicon-flame">Hot Resturant</h5>
+                <p class="card-text">Reserve your table before seats run out!</p>
+                <div class="text-center">
+                    <a href="/" class="btn btn-primary">Home</a>
+                    <a href="/tables" class="btn btn-secondary">View Tables</a>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="container">
+        <form>
+                <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
+                      </div>
+                <div class="form-group">
+                  <label for="email">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                  <label for="phine">Phone Number</label>
+                  <input type="text" class="form-control" id="phoneNumber" placeholder="555-555-5555">
+                </div>
+                <div class="form-group">
+                        <label for="Id">Unique ID</label>
+                        <input type="text" class="form-control" id="Id" placeholder="Unique ID">
+                      </div>
+                
+                <button type="submit" class="btn btn-primary" id="addBtn">Submit</button>
+              </form>
+</div>
+<script type="text/javascript">
+    $('#addBtn').on('click', function () {
+      var newreservation = {
+        name: $('#name').val().trim(),
+        email: $('#email').val().trim(),
+        phone: $('#phone').val().trim(),
+        guest: $('#guest').val().trim(),
+      };
+      $.post('http://localhost:3000/api/new', newreservation)
+        .done(function (data) {
+          console.log(data);
+          if(data.waitlist){
+            window.location.href = '/list#waitlist';
+          } else {
+            window.location.href = '/list#seated';
+          }
+        });
+      
+    });
+  </script>
+    
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</html>
